@@ -31,6 +31,16 @@ impl Drop for WhisperState {
 }
 
 impl WhisperState {
+    /// Returns the raw pointer to the underlying `whisper_state`.
+    ///
+    /// # Safety
+    ///
+    /// The returned pointer is valid for the lifetime of this `WhisperState`.
+    /// The caller must ensure the pointer is not used after the state is dropped.
+    pub fn as_ptr(&self) -> *mut whisper_rs_sys::whisper_state {
+        self.ptr
+    }
+
     /// # Safety
     /// * `ptr` must be non-null
     /// * `ptr` must be a valid pointer to a `whisper_state`.
